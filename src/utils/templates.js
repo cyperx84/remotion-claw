@@ -45,6 +45,16 @@ export const TEMPLATES = {
     compositionId: 'ProductDemo',
     entryPoint: join(TEMPLATES_DIR, 'product-demo', 'index.jsx'),
   },
+  'narration': {
+    name: 'Narration',
+    description: 'Scene-by-scene visuals synced to voiceover — terminal, code, diagrams, feature grids, stats, text highlights',
+    width: 1920,
+    height: 1080,
+    fps: 30,
+    durationInFrames: 900, // overridden by scene durations
+    compositionId: 'Narration',
+    entryPoint: join(TEMPLATES_DIR, 'narration', 'index.jsx'),
+  },
 };
 
 export function getTemplate(name) {

@@ -24,6 +24,9 @@ function inferTemplate(description) {
   if (d.includes('product') || d.includes('demo') || d.includes('app') || d.includes('feature') || d.includes('walkthrough')) {
     return 'product-demo';
   }
+  if (d.includes('narrat') || d.includes('scene') || d.includes('explainer') || d.includes('overview') || d.includes('walkthrough video') || d.includes('voiceover')) {
+    return 'narration';
+  }
   return 'announcement';
 }
 
