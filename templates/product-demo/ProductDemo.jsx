@@ -7,6 +7,7 @@ import {
   spring,
   Sequence,
 } from "remotion";
+import { AudioOverlay } from "../shared/AudioOverlay.jsx";
 
 export const ProductDemo = ({
   title = "Product Name",
@@ -16,6 +17,8 @@ export const ProductDemo = ({
   accentColor = "#7c3aed",
   textColor = "#ffffff",
   screenshotUrl = "",
+  audioSrc = null,
+  audioVolume = 1,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
@@ -32,6 +35,7 @@ export const ProductDemo = ({
 
   return (
     <AbsoluteFill style={{ background, opacity: fadeOut }}>
+      <AudioOverlay audioSrc={audioSrc} volume={audioVolume} />
       {/* Gradient background */}
       <AbsoluteFill
         style={{

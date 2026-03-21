@@ -34,7 +34,7 @@ program
   .option('-o, --output <path>', 'Output file path', 'out/video.mp4')
   .option('--props <json>', 'JSON props to pass to the composition')
   .option('--props-file <path>', 'Path to JSON props file')
-  .option('--duration <seconds>', 'Video duration in seconds', '30')
+  .option('--duration <seconds>', 'Video duration in seconds')
   .option('--tts <text>', 'Generate TTS voiceover from text')
   .option('--tts-provider <provider>', 'TTS provider: chatterbox (default), openai, elevenlabs', 'chatterbox')
   .option('--voice <voice>', 'TTS voice name (openai/elevenlabs)', 'auto')
