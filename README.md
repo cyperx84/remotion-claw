@@ -6,8 +6,18 @@ Part of the [OpenClaw](https://openclaw.com) ecosystem.
 
 ## Install
 
+### npm
+
 ```bash
 npm install -g remotion-claw
+```
+
+### Homebrew (HEAD from this repo)
+
+```bash
+brew install --HEAD ./Formula/remotion-claw.rb
+# or from GitHub directly
+brew install --HEAD https://raw.githubusercontent.com/cyperx84/remotion-claw/main/Formula/remotion-claw.rb
 ```
 
 Install/update the OpenClaw skill file from this repo:
@@ -174,9 +184,19 @@ git clone https://github.com/cyperx84/remotion-claw.git
 cd remotion-claw
 npm install
 node bin/rclaw.js list
+npm run test:render
 npm run test:smoke
 npm run skill:install
 ```
+
+## CI
+
+GitHub Actions now runs:
+- template listing smoke test
+- non-TTS render smoke test
+- `npm pack --dry-run`
+
+There is also an optional self-hosted macOS workflow for full Chatterbox TTS smoke testing.
 
 ## License
 

@@ -1,6 +1,6 @@
 {
   "name": "remotion-claw",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Remotion video generation CLI for AI agents — templates, TTS, batch rendering",
   "author": "cyperx84",
   "license": "MIT",
@@ -21,6 +21,7 @@
     "render": "node bin/rclaw.js render",
     "list": "node bin/rclaw.js list",
     "test": "node bin/rclaw.js list",
+    "test:render": "node scripts/smoke-render.mjs",
     "test:smoke": "node scripts/smoke-create-tts.mjs",
     "skill:install": "bash scripts/install-openclaw-skill.sh"
   },

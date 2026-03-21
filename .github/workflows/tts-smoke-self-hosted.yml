@@ -1,0 +1,26 @@
+name: tts-smoke-self-hosted
+
+on:
+  workflow_dispatch:
+
+jobs:
+  chatterbox-smoke:
+    runs-on: [self-hosted, macOS, ARM64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Verify Chatterbox env
+        run: test -x "$HOME/.venvs/chatterbox/bin/python"
+
+      - name: TTS smoke
+        run: node scripts/smoke-create-tts.mjs
