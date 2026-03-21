@@ -9,7 +9,7 @@ Part of the [OpenClaw](https://openclaw.com) ecosystem.
 ### npm
 
 ```bash
-npm install -g remotion-claw
+npm install -g @cyperx84/remotion-claw
 ```
 
 ### Homebrew (HEAD from this repo)
@@ -32,7 +32,7 @@ npm run skill:install
 Or use directly:
 
 ```bash
-npx remotion-claw create "30-second product demo"
+npx @cyperx84/remotion-claw create "30-second product demo"
 ```
 
 ## Quick Start

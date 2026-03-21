@@ -1,5 +1,5 @@
 {
-  "name": "remotion-claw",
+  "name": "@cyperx84/remotion-claw",
   "version": "0.1.2",
   "description": "Remotion video generation CLI for AI agents — templates, TTS, batch rendering",
   "author": "cyperx84",
