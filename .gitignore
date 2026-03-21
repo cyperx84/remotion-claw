@@ -1,0 +1,8 @@
+node_modules/
+out/
+dist/
+.rclaw-props.json
+*.mp4
+*.mp3
+*.wav
+.DS_Store

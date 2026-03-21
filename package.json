@@ -1,0 +1,49 @@
+{
+  "name": "remotion-claw",
+  "version": "0.1.0",
+  "description": "Remotion video generation CLI for AI agents — templates, TTS, batch rendering",
+  "author": "cyperx84",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "rclaw": "./bin/rclaw.js"
+  },
+  "main": "./src/index.js",
+  "files": [
+    "bin/",
+    "src/",
+    "templates/",
+    "README.md"
+  ],
+  "scripts": {
+    "render": "node bin/rclaw.js render",
+    "list": "node bin/rclaw.js list",
+    "test": "node bin/rclaw.js list"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "remotion": "^4.0.438",
+    "@remotion/cli": "^4.0.438",
+    "@remotion/renderer": "^4.0.438"
+  },
+  "devDependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "keywords": [
+    "remotion",
+    "video",
+    "cli",
+    "ai-agent",
+    "openclaw",
+    "tts",
+    "templates"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cyperx84/remotion-claw.git"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
