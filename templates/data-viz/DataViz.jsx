@@ -6,6 +6,7 @@ import {
   interpolate,
   spring,
 } from "remotion";
+import { AudioOverlay } from "../shared/AudioOverlay.jsx";
 
 export const DataViz = ({
   title = "Data Overview",
@@ -15,6 +16,8 @@ export const DataViz = ({
   background = "#0f0f23",
   textColor = "#ffffff",
   subtitle = "",
+  audioSrc = null,
+  audioVolume = 1,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
@@ -42,6 +45,7 @@ export const DataViz = ({
         padding: 80,
       }}
     >
+      <AudioOverlay audioSrc={audioSrc} volume={audioVolume} />
       {/* Title */}
       <h1
         style={{

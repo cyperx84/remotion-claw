@@ -17,5 +17,11 @@ export const ProductDemoRoot = () => (
       accentColor: "#7c3aed",
       textColor: "#ffffff",
     }}
+    calculateMetadata={async ({ props }) => {
+      if (props.durationInFrames) {
+        return { durationInFrames: props.durationInFrames };
+      }
+      return {};
+    }}
   />
 );

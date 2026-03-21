@@ -31,8 +31,11 @@ rclaw create "top 3 features" --template social-clip
 # Create with custom props
 rclaw create "weekly stats" --template data-viz --props '{"data":[10,25,40,35,50],"labels":["W1","W2","W3","W4","W5"]}'
 
-# Create with TTS voiceover
+# Create with TTS voiceover (auto-matches video length to audio)
 rclaw create "product overview" --tts "Welcome to our product demo. Let me show you what we've built."
+
+# Create with local Chatterbox voice cloning
+rclaw create "weekly update" --tts "Here’s what we shipped this week." --tts-provider chatterbox
 
 # Render a specific composition
 rclaw render SocialClip -o out/clip.mp4 --width 1080 --height 1920
@@ -102,18 +105,23 @@ All templates accept props as inline JSON (`--props '{...}'`) or from a file (`-
 
 ## TTS
 
-Generate voiceover audio with OpenAI or ElevenLabs:
+Generate voiceover audio with Chatterbox (default, local voice clone), OpenAI, or ElevenLabs:
 
 ```bash
+# Chatterbox local TTS (default, no API key)
+rclaw tts "Your script here"
+
 # OpenAI TTS (requires OPENAI_API_KEY)
 rclaw tts "Your script here" --provider openai --voice alloy
 
 # ElevenLabs (requires ELEVENLABS_API_KEY)
 rclaw tts "Your script here" --provider elevenlabs --voice <voice-id>
 
-# Create video with inline TTS
+# Create video with inline TTS (audio is embedded into the MP4)
 rclaw create "demo" --tts "Welcome to our product walkthrough"
 ```
+
+When `--tts` is used and `--duration` is omitted, `rclaw create` auto-detects the generated audio length and sizes the video to match.
 
 ## Programmatic Usage
 

@@ -16,5 +16,11 @@ export const SocialClipRoot = () => (
       accentColor: "#e94560",
       textColor: "#ffffff",
     }}
+    calculateMetadata={async ({ props }) => {
+      if (props.durationInFrames) {
+        return { durationInFrames: props.durationInFrames };
+      }
+      return {};
+    }}
   />
 );

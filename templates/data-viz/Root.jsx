@@ -17,5 +17,11 @@ export const DataVizRoot = () => (
       background: "#0f0f23",
       textColor: "#ffffff",
     }}
+    calculateMetadata={async ({ props }) => {
+      if (props.durationInFrames) {
+        return { durationInFrames: props.durationInFrames };
+      }
+      return {};
+    }}
   />
 );

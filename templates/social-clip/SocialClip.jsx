@@ -7,6 +7,7 @@ import {
   spring,
   Sequence,
 } from "remotion";
+import { AudioOverlay } from "../shared/AudioOverlay.jsx";
 
 export const SocialClip = ({
   title = "Your Title",
@@ -15,6 +16,8 @@ export const SocialClip = ({
   accentColor = "#e94560",
   textColor = "#ffffff",
   items = [],
+  audioSrc = null,
+  audioVolume = 1,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
@@ -45,6 +48,7 @@ export const SocialClip = ({
         opacity: fadeOut,
       }}
     >
+      <AudioOverlay audioSrc={audioSrc} volume={audioVolume} />
       {/* Background gradient overlay */}
       <AbsoluteFill
         style={{

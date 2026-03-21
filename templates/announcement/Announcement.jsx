@@ -6,6 +6,7 @@ import {
   interpolate,
   spring,
 } from "remotion";
+import { AudioOverlay } from "../shared/AudioOverlay.jsx";
 
 export const Announcement = ({
   title = "Big News!",
@@ -14,6 +15,8 @@ export const Announcement = ({
   background = "#16213e",
   textColor = "#ffffff",
   author = "",
+  audioSrc = null,
+  audioVolume = 1,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
@@ -51,6 +54,7 @@ export const Announcement = ({
         opacity: fadeOut,
       }}
     >
+      <AudioOverlay audioSrc={audioSrc} volume={audioVolume} />
       {/* Background decoration */}
       <div
         style={{
