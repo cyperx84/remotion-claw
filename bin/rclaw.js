@@ -36,8 +36,11 @@ program
   .option('--props-file <path>', 'Path to JSON props file')
   .option('--duration <seconds>', 'Video duration in seconds', '30')
   .option('--tts <text>', 'Generate TTS voiceover from text')
-  .option('--tts-provider <provider>', 'TTS provider: openai, elevenlabs', 'openai')
-  .option('--voice <voice>', 'TTS voice name', 'alloy')
+  .option('--tts-provider <provider>', 'TTS provider: chatterbox (default), openai, elevenlabs', 'chatterbox')
+  .option('--voice <voice>', 'TTS voice name (openai/elevenlabs)', 'auto')
+  .option('--voice-prompt <path>', 'Voice reference audio (chatterbox)')
+  .option('--exaggeration <n>', 'Expressiveness 0-1 (chatterbox)')
+  .option('--cfg-weight <n>', 'Voice adherence 0-1 (chatterbox)')
   .option('--width <px>', 'Video width')
   .option('--height <px>', 'Video height')
   .option('--fps <n>', 'Frames per second', '30')
@@ -64,10 +67,13 @@ program
 
 program
   .command('tts <text>')
-  .description('Generate TTS audio file')
-  .option('-o, --output <path>', 'Output audio path', 'out/voiceover.mp3')
-  .option('--provider <provider>', 'TTS provider: openai, elevenlabs', 'openai')
-  .option('--voice <voice>', 'Voice name', 'alloy')
+  .description('Generate TTS audio file (default: Chatterbox local voice clone)')
+  .option('-o, --output <path>', 'Output audio path', 'out/voiceover.wav')
+  .option('--provider <provider>', 'TTS provider: chatterbox (default), openai, elevenlabs', 'chatterbox')
+  .option('--voice <voice>', 'Voice name (openai/elevenlabs)', 'auto')
+  .option('--voice-prompt <path>', 'Path to voice reference audio (chatterbox)')
+  .option('--exaggeration <n>', 'Expressiveness 0-1 (chatterbox, default 0.5)')
+  .option('--cfg-weight <n>', 'Voice adherence 0-1 (chatterbox, default 0.5)')
   .action(ttsCommand);
 
 program.parse();

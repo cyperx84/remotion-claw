@@ -50,12 +50,17 @@ export async function createCommand(description, options) {
   // Handle TTS
   let audioPath = null;
   if (options.tts) {
+    const ttsProvider = options.ttsProvider || 'chatterbox';
+    const ext = ttsProvider === 'chatterbox' ? '.wav' : '.mp3';
     console.log(`🔊 Generating TTS voiceover...`);
-    audioPath = resolve(dirname(options.output), 'voiceover.mp3');
+    audioPath = resolve(dirname(options.output), `voiceover${ext}`);
     await generateTTS(options.tts, {
       output: audioPath,
-      provider: options.ttsProvider || 'openai',
-      voice: options.voice || 'alloy',
+      provider: ttsProvider,
+      voice: options.voice || 'auto',
+      voicePrompt: options.voicePrompt,
+      exaggeration: options.exaggeration ? parseFloat(options.exaggeration) : undefined,
+      cfgWeight: options.cfgWeight ? parseFloat(options.cfgWeight) : undefined,
     });
     props.audioSrc = audioPath;
     console.log(`✅ TTS saved: ${audioPath}`);

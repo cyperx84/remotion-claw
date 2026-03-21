@@ -1,26 +1,37 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname } from 'path';
+import { generateChatterbox } from './chatterbox.js';
 
 /**
  * Generate TTS audio from text.
- * Supports OpenAI and ElevenLabs providers.
+ * Providers: chatterbox (default, local voice clone), openai, elevenlabs.
  *
- * Requires env vars:
- *   OPENAI_API_KEY — for OpenAI TTS
- *   ELEVENLABS_API_KEY — for ElevenLabs TTS
+ * Chatterbox: local, free, voice-cloned from your corpus. No API key needed.
+ * OpenAI: requires OPENAI_API_KEY
+ * ElevenLabs: requires ELEVENLABS_API_KEY
  */
 export async function generateTTS(text, options = {}) {
-  const { output = 'out/voiceover.mp3', provider = 'openai', voice = 'alloy' } = options;
+  const {
+    output = 'out/voiceover.wav',
+    provider = 'chatterbox',
+    voice = 'auto',
+    voicePrompt,
+    exaggeration,
+    cfgWeight,
+  } = options;
 
   const outDir = dirname(output);
   if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
 
-  if (provider === 'openai') {
-    return await generateOpenAI(text, output, voice);
-  } else if (provider === 'elevenlabs') {
-    return await generateElevenLabs(text, output, voice);
-  } else {
-    throw new Error(`Unknown TTS provider: ${provider}. Use 'openai' or 'elevenlabs'.`);
+  switch (provider) {
+    case 'chatterbox':
+      return await generateChatterbox(text, output, { voicePrompt, exaggeration, cfgWeight });
+    case 'openai':
+      return await generateOpenAI(text, output, voice === 'auto' ? 'alloy' : voice);
+    case 'elevenlabs':
+      return await generateElevenLabs(text, output, voice);
+    default:
+      throw new Error(`Unknown TTS provider: ${provider}. Use 'chatterbox', 'openai', or 'elevenlabs'.`);
   }
 }
 
@@ -56,10 +67,7 @@ async function generateElevenLabs(text, output, voice) {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) throw new Error('ELEVENLABS_API_KEY not set');
 
-  // Default to a common voice ID if a name is given
-  // Users should pass the actual voice ID for best results
   const voiceId = voice;
-
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
     method: 'POST',
     headers: {
