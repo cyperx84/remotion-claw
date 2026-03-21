@@ -59,6 +59,7 @@ export async function createCommand(description, options) {
       voicePrompt: options.voicePrompt,
       exaggeration: options.exaggeration ? parseFloat(options.exaggeration) : undefined,
       cfgWeight: options.cfgWeight ? parseFloat(options.cfgWeight) : undefined,
+      seed: options.seed ? parseInt(options.seed, 10) : undefined,
     });
 
     // Detect audio duration and auto-size video

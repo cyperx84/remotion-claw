@@ -18,6 +18,7 @@ export async function generateTTS(text, options = {}) {
     voicePrompt,
     exaggeration,
     cfgWeight,
+    seed,
   } = options;
 
   const outDir = dirname(output);
@@ -25,7 +26,7 @@ export async function generateTTS(text, options = {}) {
 
   switch (provider) {
     case 'chatterbox':
-      return await generateChatterbox(text, output, { voicePrompt, exaggeration, cfgWeight });
+      return await generateChatterbox(text, output, { voicePrompt, exaggeration, cfgWeight, seed });
     case 'openai':
       return await generateOpenAI(text, output, voice === 'auto' ? 'alloy' : voice);
     case 'elevenlabs':

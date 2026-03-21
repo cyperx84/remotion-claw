@@ -13,6 +13,7 @@ import { homedir } from 'os';
  * @param {string} [options.voicePrompt] - Path to voice reference audio
  * @param {number} [options.exaggeration] - Expressiveness 0-1 (default 0.5)
  * @param {number} [options.cfgWeight] - Adherence to voice prompt 0-1 (default 0.5)
+ * @param {number} [options.seed] - Fixed RNG seed for reproducible voice (continuity across chunks)
  * @returns {string} Path to generated audio
  */
 export async function generateChatterbox(text, output, options = {}) {
@@ -34,11 +35,18 @@ export async function generateChatterbox(text, output, options = {}) {
   // Ensure output has .wav extension (Chatterbox outputs WAV)
   const wavOutput = output.replace(/\.[^.]+$/, '.wav');
 
+  const seed = options.seed;
+
   const pythonScript = `
 import sys, os
 os.environ['PYTORCH_ENABLE_MPS_FALLBACK'] = '1'
 import torchaudio as ta
+import torch
 from chatterbox.tts import ChatterboxTTS
+
+seed_arg = sys.argv[6] if len(sys.argv) > 6 else "auto"
+if seed_arg != "auto":
+    torch.manual_seed(int(seed_arg))
 
 model = ChatterboxTTS.from_pretrained(device="mps")
 wav = model.generate(
@@ -49,7 +57,8 @@ wav = model.generate(
 )
 ta.save(sys.argv[5], wav, model.sr)
 dur = wav.shape[1] / model.sr
-print(f"chatterbox_ok duration={dur:.2f}")
+seed_info = f" seed={seed_arg}" if seed_arg != "auto" else ""
+print(f"chatterbox_ok duration={dur:.2f}{seed_info}")
 `;
 
   const venvPython = join(homedir(), '.venvs', 'chatterbox', 'bin', 'python3');
@@ -63,6 +72,7 @@ print(f"chatterbox_ok duration={dur:.2f}")
   console.log(`   🎤 Voice prompt: ${voicePrompt}`);
   console.log(`   🧠 Model: Chatterbox (MPS local)`);
   console.log(`   ⚙️  Exaggeration: ${exaggeration}, CFG: ${cfgWeight}`);
+  if (seed != null) console.log(`   🎲 Seed: ${seed}`);
 
   try {
     const result = execFileSync(venvPython, [
@@ -72,6 +82,7 @@ print(f"chatterbox_ok duration={dur:.2f}")
       String(exaggeration),
       String(cfgWeight),
       wavOutput,
+      String(seed ?? 'auto'),
     ], {
       timeout: 300_000, // 5 min max
       maxBuffer: 10 * 1024 * 1024,

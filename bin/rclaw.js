@@ -41,6 +41,7 @@ program
   .option('--voice-prompt <path>', 'Voice reference audio (chatterbox)')
   .option('--exaggeration <n>', 'Expressiveness 0-1 (chatterbox)')
   .option('--cfg-weight <n>', 'Voice adherence 0-1 (chatterbox)')
+  .option('--seed <n>', 'Fixed RNG seed for reproducible voice continuity (chatterbox)')
   .option('--width <px>', 'Video width')
   .option('--height <px>', 'Video height')
   .option('--fps <n>', 'Frames per second', '30')
@@ -74,6 +75,7 @@ program
   .option('--voice-prompt <path>', 'Path to voice reference audio (chatterbox)')
   .option('--exaggeration <n>', 'Expressiveness 0-1 (chatterbox, default 0.5)')
   .option('--cfg-weight <n>', 'Voice adherence 0-1 (chatterbox, default 0.5)')
+  .option('--seed <n>', 'Fixed RNG seed for reproducible voice continuity (chatterbox)')
   .action(ttsCommand);
 
 program.parse();

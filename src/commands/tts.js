@@ -17,6 +17,7 @@ export async function ttsCommand(text, options) {
       voicePrompt: options.voicePrompt,
       exaggeration: options.exaggeration ? parseFloat(options.exaggeration) : undefined,
       cfgWeight: options.cfgWeight ? parseFloat(options.cfgWeight) : undefined,
+      seed: options.seed ? parseInt(options.seed, 10) : undefined,
     });
     console.log(`\n✅ Audio saved: ${outPath}`);
   } catch (err) {
