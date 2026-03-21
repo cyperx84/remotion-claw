@@ -10,6 +10,15 @@ Part of the [OpenClaw](https://openclaw.com) ecosystem.
 npm install -g remotion-claw
 ```
 
+Install/update the OpenClaw skill file from this repo:
+
+```bash
+git clone https://github.com/cyperx84/remotion-claw.git
+cd remotion-claw
+npm install
+npm run skill:install
+```
+
 Or use directly:
 
 ```bash
@@ -141,7 +150,15 @@ await generateTTS('Hello world', { output: 'voice.mp3' });
 
 ## OpenClaw Integration
 
-This tool has a corresponding OpenClaw skill at `~/.openclaw/skills/remotion/SKILL.md`.
+This repo ships an OpenClaw skill source at `skills/openclaw/remotion/SKILL.md`.
+Install/update it locally with:
+
+```bash
+npm run skill:install
+```
+
+Installed destination:
+- `~/.openclaw/skills/remotion/SKILL.md`
 
 Works with:
 - **summarize** — transcript → voiceover → video
@@ -157,6 +174,8 @@ git clone https://github.com/cyperx84/remotion-claw.git
 cd remotion-claw
 npm install
 node bin/rclaw.js list
+npm run test:smoke
+npm run skill:install
 ```
 
 ## License

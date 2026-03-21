@@ -5,4 +5,5 @@ dist/
 *.mp4
 *.mp3
 *.wav
+public/voiceover-*
 .DS_Store
