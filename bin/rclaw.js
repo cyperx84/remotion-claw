@@ -31,6 +31,7 @@ program
   .command('create <description>')
   .description('Create a video from a natural language description')
   .option('-t, --template <name>', 'Template: social-clip, data-viz, announcement, product-demo')
+  .option('--theme <name>', 'Visual theme: glitch, neon, terminal, minimal, fire, ice (default: auto from description)')
   .option('-o, --output <path>', 'Output file path', 'out/video.mp4')
   .option('--props <json>', 'JSON props to pass to the composition')
   .option('--props-file <path>', 'Path to JSON props file')

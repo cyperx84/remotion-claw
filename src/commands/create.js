@@ -6,6 +6,7 @@ import { resolveProps } from '../utils/resolve-props.js';
 import { buildCreateProps } from '../utils/create-default-props.js';
 import { generateTTS } from '../tts/generate.js';
 import { getAudioDuration } from '../utils/audio.js';
+import { getTheme, applyTheme } from '../../templates/shared/themes.js';
 
 /**
  * Infer template from natural language description.
@@ -44,16 +45,40 @@ function inferTemplate(description) {
   return 'announcement';
 }
 
+/**
+ * Infer theme from description keywords.
+ */
+function inferTheme(description) {
+  const d = description.toLowerCase();
+  if (d.includes('glitch') || d.includes('cyber') || d.includes('chaos') || d.includes('hack')) return 'glitch';
+  if (d.includes('neon') || d.includes('glow') || d.includes('dream') || d.includes('vaporwave')) return 'neon';
+  if (d.includes('terminal') || d.includes('crt') || d.includes('hacker') || d.includes('cli') || d.includes('matrix')) return 'terminal';
+  if (d.includes('minimal') || d.includes('clean') || d.includes('modern') || d.includes('simple') || d.includes('apple')) return 'minimal';
+  if (d.includes('fire') || d.includes('flame') || d.includes('hot') || d.includes('ember')) return 'fire';
+  if (d.includes('ice') || d.includes('frost') || d.includes('cold') || d.includes('frozen') || d.includes('snow')) return 'ice';
+  return null; // no theme detected — use default
+}
+
 export async function createCommand(description, options) {
   const templateName = options.template || inferTemplate(description);
   const template = getTemplate(templateName);
 
+  // Resolve theme: explicit --theme > inferred from description > default
+  const themeName = options.theme || inferTheme(description) || 'default';
+  const theme = getTheme(themeName);
+
   console.log(`\n🎬 Creating video: "${description}"`);
   console.log(`📐 Template: ${template.name} (${template.width}x${template.height})`);
+  if (themeName !== 'default') {
+    console.log(`🎨 Theme: ${theme.name}`);
+  }
 
   // Resolve props from CLI and apply template-specific defaults
   let props = resolveProps(options);
   props = buildCreateProps(templateName, description, props, options);
+
+  // Apply theme — theme colors/effects become defaults, explicit props override
+  props = applyTheme(theme, props);
 
   const fps = parseInt(options.fps || template.fps.toString(), 10);
 

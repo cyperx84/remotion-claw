@@ -7,26 +7,34 @@ import {
   spring,
 } from "remotion";
 import { AudioOverlay } from "../shared/AudioOverlay.jsx";
+import { ThemeLayer } from "../shared/ThemeLayer.jsx";
+import { KineticText } from "../social-clip/effects/KineticText.jsx";
+import { GlitchText } from "../social-clip/effects/GlitchText.jsx";
 
 export const Announcement = ({
   title = "Big News!",
   body = "We just shipped something amazing.",
-  accent = "#e94560",
-  background = "#16213e",
+  accent,
+  accentColor,
+  background,
   textColor = "#ffffff",
   author = "",
   audioSrc = null,
   audioVolume = 1,
+  // Theme props (injected by theme system)
+  _theme = "default",
+  _effects = {},
+  _fonts = {},
+  _transition = "fade",
+  _extras = {},
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
-
-  // Background pulse
-  const pulse = interpolate(
-    Math.sin(frame * 0.05),
-    [-1, 1],
-    [0.95, 1.05]
-  );
+  const accentFinal = accentColor || accent || "#e94560";
+  const bgFinal = background || "#16213e";
+  const headingFont = _fonts.heading || "Inter, system-ui, sans-serif";
+  const bodyFont = _fonts.body || "Inter, system-ui, sans-serif";
+  const useGlitch = _effects.glitch || _theme === "glitch";
 
   // Title entrance
   const titleProgress = spring({ frame, fps, config: { damping: 14 } });
@@ -39,106 +47,97 @@ export const Announcement = ({
   // Accent line
   const lineWidth = interpolate(frame, [5, 35], [0, 120], { extrapolateRight: "clamp" });
 
-  // Fade out
-  const fadeOut = interpolate(frame, [durationInFrames - 20, durationInFrames], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
+  const TitleWrapper = useGlitch ? GlitchText : React.Fragment;
+  const titleWrapperProps = useGlitch ? { intensity: _effects.glitch?.intensity || 1.5 } : {};
 
   return (
-    <AbsoluteFill
-      style={{
-        background,
-        justifyContent: "center",
-        alignItems: "center",
-        opacity: fadeOut,
-      }}
-    >
+    <AbsoluteFill style={{ background: bgFinal }}>
       <AudioOverlay audioSrc={audioSrc} volume={audioVolume} />
-      {/* Background decoration */}
-      <div
-        style={{
-          position: "absolute",
-          width: 600,
-          height: 600,
-          borderRadius: "50%",
-          background: `${accent}15`,
-          transform: `scale(${pulse})`,
-        }}
-      />
-
-      {/* Content */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          padding: "0 80px",
-          zIndex: 1,
-          maxWidth: 900,
-        }}
+      <ThemeLayer
+        effects={_effects}
+        colors={{ accent: accentFinal, background: bgFinal }}
+        transition={_transition}
       >
-        {/* Accent line */}
-        <div
+        <AbsoluteFill
           style={{
-            width: lineWidth,
-            height: 4,
-            backgroundColor: accent,
-            marginBottom: 40,
-            borderRadius: 2,
-          }}
-        />
-
-        {/* Title */}
-        <h1
-          style={{
-            fontSize: 64,
-            fontWeight: 800,
-            color: textColor,
-            textAlign: "center",
-            lineHeight: 1.15,
-            margin: 0,
-            transform: `scale(${titleProgress})`,
-            opacity: titleOpacity,
-            fontFamily: "Inter, system-ui, sans-serif",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0 80px",
           }}
         >
-          {title}
-        </h1>
+          {/* Accent line */}
+          <div
+            style={{
+              width: lineWidth,
+              height: 4,
+              backgroundColor: accentFinal,
+              marginBottom: 40,
+              borderRadius: 2,
+              boxShadow: _effects.glow ? `0 0 15px ${accentFinal}` : "none",
+            }}
+          />
 
-        {/* Body */}
-        <p
-          style={{
-            fontSize: 32,
-            color: `${textColor}cc`,
-            textAlign: "center",
-            marginTop: 30,
-            lineHeight: 1.5,
-            transform: `translateY(${bodyY}px)`,
-            opacity: bodyOpacity,
-            fontFamily: "Inter, system-ui, sans-serif",
-            fontWeight: 400,
-          }}
-        >
-          {body}
-        </p>
+          {/* Title — kinetic + optional glitch */}
+          <TitleWrapper {...titleWrapperProps}>
+            <KineticText
+              text={title}
+              fontSize={64}
+              fontWeight={800}
+              color={textColor}
+              fontFamily={headingFont}
+              direction="up"
+              staggerFrames={4}
+              startFrame={5}
+            />
+          </TitleWrapper>
 
-        {/* Author attribution */}
-        {author && (
+          {/* Body */}
           <p
             style={{
-              fontSize: 22,
-              color: accent,
-              marginTop: 40,
+              fontSize: 32,
+              color: `${textColor}cc`,
+              textAlign: "center",
+              marginTop: 30,
+              lineHeight: 1.5,
+              transform: `translateY(${bodyY}px)`,
               opacity: bodyOpacity,
-              fontFamily: "Inter, system-ui, sans-serif",
-              fontWeight: 500,
+              fontFamily: bodyFont,
+              fontWeight: 400,
+              textShadow: _effects.glow ? `0 0 10px ${accentFinal}30` : "none",
             }}
           >
-            — {author}
+            {body}
           </p>
+
+          {/* Author */}
+          {author && (
+            <p
+              style={{
+                fontSize: 22,
+                color: accentFinal,
+                marginTop: 40,
+                opacity: bodyOpacity,
+                fontFamily: bodyFont,
+                fontWeight: 500,
+              }}
+            >
+              — {author}
+            </p>
+          )}
+        </AbsoluteFill>
+
+        {/* Corner info (glitch theme) */}
+        {_extras.cornerInfo && (
+          <>
+            <div style={{ position: "absolute", top: 30, left: 30, fontFamily: "monospace", fontSize: 11, color: `${accentFinal}60`, zIndex: 20 }}>
+              [SYS:ANNOUNCE] FRM:{String(frame).padStart(4, "0")}
+            </div>
+            <div style={{ position: "absolute", bottom: 30, right: 30, fontFamily: "monospace", fontSize: 11, color: `${_effects.glitch ? "#FF003C" : accentFinal}60`, zIndex: 20 }}>
+              {accentFinal} // RCLAW
+            </div>
+          </>
         )}
-      </div>
+      </ThemeLayer>
     </AbsoluteFill>
   );
 };
