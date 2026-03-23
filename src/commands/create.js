@@ -12,6 +12,20 @@ import { getAudioDuration } from '../utils/audio.js';
  */
 function inferTemplate(description) {
   const d = description.toLowerCase();
+
+  // Style-specific social clip variants
+  if (d.includes('glitch') || d.includes('cyber') || d.includes('chaos')) {
+    return 'social-glitch';
+  }
+  if (d.includes('neon') || d.includes('glow') || d.includes('dreamy')) {
+    return 'social-neon';
+  }
+  if (d.includes('terminal') || d.includes('crt') || d.includes('hacker') || d.includes('cli')) {
+    return 'social-terminal';
+  }
+  if (d.includes('minimal') || d.includes('clean') || d.includes('modern') || d.includes('apple')) {
+    return 'social-minimal';
+  }
   if (d.includes('tiktok') || d.includes('reel') || d.includes('short') || d.includes('social') || d.includes('9:16') || d.includes('vertical')) {
     return 'social-clip';
   }

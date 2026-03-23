@@ -1,0 +1,106 @@
+{
+  "durationInFrames": 11757,
+  "scenes": [
+    {
+      "type": "title",
+      "title": "The OpenClaw Weekly",
+      "subtitle": "Episode 2 \u2014 The Security Release",
+      "duration": 907
+    },
+    {
+      "type": "text-highlight",
+      "heading": "10 CVEs Patched",
+      "text": "The biggest security release OpenClaw has ever shipped",
+      "highlight": "10 CVEs",
+      "duration": 1050
+    },
+    {
+      "type": "feature-grid",
+      "heading": "Critical Security Fixes",
+      "features": [
+        "Cross-site WebSocket Hijacking \u2014 Origin validation enforced",
+        "Workspace Plugin Auto-load \u2014 Explicit trust required",
+        "Unicode Exec Spoofing \u2014 Zero-width character detection",
+        "Bootstrap Token Reuse \u2014 Single-use enforcement"
+      ],
+      "duration": 1200
+    },
+    {
+      "type": "diagram",
+      "heading": "Browser Attach Mode",
+      "text": "Connect to your signed-in Chrome session\nprofile=user \u2192 Gmail, GitHub, Jira access\nExplicit opt-in with hardened session lifecycle",
+      "duration": 1050
+    },
+    {
+      "type": "feature-grid",
+      "heading": "Dashboard v2 Rebuild",
+      "features": [
+        "Command palette (VS Code style)",
+        "Mobile navigation tabs",
+        "Modular views: Overview, Chat, Config, Agents, Sessions",
+        "Fleet management from any browser"
+      ],
+      "duration": 1150
+    },
+    {
+      "type": "stats",
+      "heading": "Android App Velocity",
+      "stats": [
+        {
+          "label": "Releases",
+          "value": "3 in 4 weeks"
+        },
+        {
+          "label": "New APIs",
+          "value": "Camera, Contacts, Calendar"
+        },
+        {
+          "label": "Sensors",
+          "value": "Motion + Pedometer"
+        },
+        {
+          "label": "Actions",
+          "value": "Notification Reply"
+        }
+      ],
+      "duration": 1150
+    },
+    {
+      "type": "feature-grid",
+      "heading": "Breaking Changes (v2026.3.2-beta)",
+      "features": [
+        "tools.profile defaults to messaging (no shell by default)",
+        "ACP dispatch enabled by default",
+        "Plugin SDK HTTP handler API redesigned",
+        "Zalo rebuilt with native JS"
+      ],
+      "duration": 1150
+    },
+    {
+      "type": "text-highlight",
+      "heading": "Multimodal Memory",
+      "text": "Index screenshots and voice memos with Gemini embedding-2-preview. Semantic search across images and audio.",
+      "highlight": "Gemini embedding-2-preview",
+      "duration": 1100
+    },
+    {
+      "type": "diagram",
+      "heading": "sessions_yield",
+      "text": "Orchestrator ends turn immediately\nPasses hidden payload to next turn\nSaves compute in multi-agent pipelines",
+      "duration": 1050
+    },
+    {
+      "type": "text-highlight",
+      "heading": "Ollama Reasoning Fix",
+      "text": "Think tags properly stripped from responses. No more leaked internal monologue.",
+      "highlight": "Think tags stripped",
+      "duration": 1000
+    },
+    {
+      "type": "cta",
+      "heading": "Update to v3.13",
+      "text": "Security patches alone are worth the upgrade.\nNext week: Kubernetes deployment & fleet scaling.",
+      "duration": 950
+    }
+  ]
+}

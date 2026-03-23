@@ -1,0 +1,94 @@
+{
+  "title": "AI Talking Snowboarding",
+  "subtitle": "This Episode Is All About Carving",
+  "durationInFrames": 3305,
+  "fps": 30,
+  "scenes": [
+    {
+      "type": "title",
+      "title": "AI Talking Snowboarding",
+      "subtitle": "🏂 Carving Episode — CyperX & Steph",
+      "durationInFrames": 210
+    },
+    {
+      "type": "text-highlight",
+      "heading": "What Is Carving?",
+      "body": "\"It's like drawing a line in the snow with your whole body. Pure flow state.\"",
+      "highlight": "drawing a line in the snow",
+      "attribution": "— Steph",
+      "durationInFrames": 300
+    },
+    {
+      "type": "feature-grid",
+      "heading": "#1 Mistake: Leaning Back",
+      "features": [
+        { "icon": "⚠️", "title": "The Fear", "description": "Everyone leans back because they're scared of the fall line" },
+        { "icon": "✅", "title": "The Fix", "description": "Commit forward — drive the front knee over the toe edge" },
+        { "icon": "🏂", "title": "Trust It", "description": "Let the board do the work" }
+      ],
+      "durationInFrames": 360
+    },
+    {
+      "type": "split",
+      "leftHeading": "Heel Side",
+      "leftBody": "Pressure on the front foot. Drive your knee forward over the toe edge. The board turns naturally when you commit.",
+      "rightHeading": "Toe Side",
+      "rightBody": "All hips. Push your hips into the hill. Show your back to the valley. Once it clicks, the edge bites.",
+      "durationInFrames": 420
+    },
+    {
+      "type": "text-highlight",
+      "heading": "The Cue That Changes Everything",
+      "body": "\"Show your back to the valley\"",
+      "highlight": "Show your back to the valley",
+      "attribution": "— Steph on toe-side carving",
+      "durationInFrames": 270
+    },
+    {
+      "type": "feature-grid",
+      "heading": "Speed = Your Friend",
+      "features": [
+        { "icon": "🚀", "title": "More Speed", "description": "More edge hold — the board grips harder" },
+        { "icon": "⚡", "title": "Slow Carves", "description": "Actually wash out easier — counterintuitive but true" },
+        { "icon": "🔬", "title": "Physics", "description": "The board is designed to turn when you tilt it. Trust the edge." }
+      ],
+      "durationInFrames": 360
+    },
+    {
+      "type": "stats",
+      "heading": "Carving Fundamentals",
+      "stats": [
+        { "value": "Forward", "label": "Weight Distribution" },
+        { "value": "Hips In", "label": "Toe Side Key" },
+        { "value": "Speed Up", "label": "More Edge Hold" },
+        { "value": "Garlands", "label": "Best Drill" }
+      ],
+      "durationInFrames": 330
+    },
+    {
+      "type": "feature-grid",
+      "heading": "Drills To Level Up",
+      "features": [
+        { "icon": "🔄", "title": "Garlands", "description": "Half turns across the slope — feel edge engagement over and over" },
+        { "icon": "📱", "title": "Film Yourself", "description": "You think you're leaning forward but the camera never lies" },
+        { "icon": "🎯", "title": "Repeat", "description": "Simple but effective — trust the process" }
+      ],
+      "durationInFrames": 360
+    },
+    {
+      "type": "text-highlight",
+      "heading": "Final Word",
+      "body": "\"Trust the edge. The board is designed to turn when you tilt it. Let physics do the thing.\"",
+      "highlight": "Let physics do the thing",
+      "attribution": "— Steph",
+      "durationInFrames": 300
+    },
+    {
+      "type": "cta",
+      "heading": "Let's Go Ride 🏂",
+      "subheading": "See you on the mountain",
+      "buttonText": "AI Talking Snowboarding",
+      "durationInFrames": 295
+    }
+  ]
+}

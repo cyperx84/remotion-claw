@@ -1,0 +1,11 @@
+c1: So what is OpenClaw in like one sentence?
+a1: It's an AI agent that lives on your machine and connects to all your stuff. Discord, email, calendar, whatever.
+c2: Right. And the key thing is it runs locally.
+a2: Exactly. Your data stays on your hardware. Nothing gets sent to some random cloud unless you tell it to.
+c3: What do people actually use it for day one?
+a3: Most people start with chat. Connect it to Discord or Telegram and it just works. Then they add skills for things like GitHub or reminders.
+c4: And skills are like plugins?
+a4: Yeah. Drop a skill folder in, restart, and your agent can do new things. There's a whole marketplace now on ClawHub.
+c5: Nice. What about running it? Do you need a beefy server?
+a5: Nah. A Mac Mini or a Raspberry Pi works fine. Node.js and you're good.
+c6: Love it. Simple setup, runs anywhere, your data stays yours.
