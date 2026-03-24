@@ -86,6 +86,46 @@ export const TEMPLATES = {
     compositionId: 'ProductDemo',
     entryPoint: join(TEMPLATES_DIR, 'product-demo', 'index.jsx'),
   },
+  'quote': {
+    name: 'Quote / Testimonial',
+    description: 'Bold quote or testimonial card (1:1) — centered quote, author attribution, accent styling',
+    width: 1080,
+    height: 1080,
+    fps: 30,
+    durationInFrames: 150, // 5s
+    compositionId: 'Quote',
+    entryPoint: join(TEMPLATES_DIR, 'quote', 'index.jsx'),
+  },
+  'comparison': {
+    name: 'Comparison',
+    description: 'Before/after or A vs B split view (16:9) — animated divider, staggered items',
+    width: 1920,
+    height: 1080,
+    fps: 30,
+    durationInFrames: 300, // 10s
+    compositionId: 'Comparison',
+    entryPoint: join(TEMPLATES_DIR, 'comparison', 'index.jsx'),
+  },
+  'countdown': {
+    name: 'Countdown / Listicle',
+    description: 'Numbered listicle with big number reveals (9:16) — progress dots, per-item transitions',
+    width: 1080,
+    height: 1920,
+    fps: 30,
+    durationInFrames: 450, // 15s
+    compositionId: 'Countdown',
+    entryPoint: join(TEMPLATES_DIR, 'countdown', 'index.jsx'),
+  },
+  'tutorial': {
+    name: 'Tutorial / Step-by-Step',
+    description: 'Step-by-step walkthrough (16:9) — numbered steps, optional code blocks, progress bar',
+    width: 1920,
+    height: 1080,
+    fps: 30,
+    durationInFrames: 600, // 20s
+    compositionId: 'Tutorial',
+    entryPoint: join(TEMPLATES_DIR, 'tutorial', 'index.jsx'),
+  },
   'narration': {
     name: 'Narration',
     description: 'Scene-by-scene visuals synced to voiceover — terminal, code, diagrams, feature grids, stats, text highlights',

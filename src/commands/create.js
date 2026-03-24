@@ -7,6 +7,7 @@ import { buildCreateProps } from '../utils/create-default-props.js';
 import { generateTTS } from '../tts/generate.js';
 import { getAudioDuration } from '../utils/audio.js';
 import { getTheme, applyTheme } from '../../templates/shared/themes.js';
+import { acquireRenderLock, checkDuration, clampConcurrency, getChromeFlags, preflight } from '../utils/guards.js';
 
 /**
  * Infer template from natural language description.
@@ -60,6 +61,18 @@ function inferTheme(description) {
 }
 
 export async function createCommand(description, options) {
+  const force = options.force || false;
+
+  // ── Pre-flight safety checks ────────────────────
+  let unlock;
+  try {
+    unlock = preflight({ force, duration: options.duration ? parseInt(options.duration, 10) : undefined });
+  } catch (err) {
+    console.error(`\n🛑 ${err.message}`);
+    process.exit(1);
+  }
+
+  try {
   const templateName = options.template || inferTemplate(description);
   const template = getTemplate(templateName);
 
@@ -159,12 +172,21 @@ export async function createCommand(description, options) {
     '--fps', fps,
   ];
 
+  // 4. Concurrency cap
+  const concurrency = clampConcurrency(options.concurrency);
+  args.push('--concurrency', concurrency);
+
+  // 2. Chrome memory limits
+  const chromeFlags = getChromeFlags();
+  args.push('--browser-executable-args', chromeFlags.join(' '));
+
   const cmd = args.join(' ');
   console.log(`\n🎥 Rendering ${durationSec}s video (${durationInFrames} frames @ ${fps}fps)...`);
+  console.log(`   Concurrency: ${concurrency} (max ${concurrency} parallel frames)`);
   console.log(`   Command: ${cmd}\n`);
 
   try {
-    execSync(cmd, { stdio: 'inherit' });
+    execSync(cmd, { stdio: 'inherit', maxBuffer: 50 * 1024 * 1024 });
     console.log(`\n✅ Video created: ${output}`);
     console.log(`   Template: ${templateName}`);
     console.log(`   Size: ${width}x${height}`);
@@ -177,5 +199,8 @@ export async function createCommand(description, options) {
     console.error('  2. Check template exists: rclaw list');
     console.error('  3. Try rendering directly: npx remotion render <entry> <comp> out.mp4');
     process.exit(1);
+  }
+  } finally {
+    unlock();
   }
 }

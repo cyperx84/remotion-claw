@@ -46,6 +46,7 @@ program
   .option('--width <px>', 'Video width')
   .option('--height <px>', 'Video height')
   .option('--fps <n>', 'Frames per second', '30')
+  .option('--force', 'Override safety checks (long duration, low RAM)')
   .action(createCommand);
 
 program
@@ -60,6 +61,7 @@ program
   .option('--fps <n>', 'Frames per second')
   .option('--crf <n>', 'Constant rate factor (quality)')
   .option('--concurrency <n>', 'Render concurrency')
+  .option('--force', 'Override safety checks (long duration, low RAM)')
   .action(renderCommand);
 
 program
